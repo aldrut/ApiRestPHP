@@ -17,7 +17,7 @@ class AccountController extends BaseController
     protected function login()
     {
         $email = $this->body['email'];
-        $accounts = $this->db->getAll("email = '$email' AND active = 1");
+        $accounts = $this->connectBDD->getAll("email = '$email' AND active = 1");
         $account = $accounts[0] ?? null;
         if (isset($account)) {
             $auth = Argon2::verify($this->body['password'], $account->password);

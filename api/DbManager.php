@@ -19,9 +19,9 @@ class DbManager
             $dsn = "mysql:host=$host;port=$port;dbname=$dbName";
             $user = "root";
             $pass = "";
-            $db = null;
+            $connectBDD = null;
             try {
-                $db = new PDO(
+                $connectBDD = new PDO(
                     $dsn,
                     $user,
                     $pass,
@@ -34,9 +34,9 @@ class DbManager
                 $error = $e->getMessage();
                 die("Erreur de connexion à la base de données : $error");
             }
-            $this->db = $db;
+            $this->connectBDD = $connectBDD;
         }
-        return $this->db;
+        return $this->connectBDD;
     }
 
     public function getAll($where = "1")
@@ -80,7 +80,7 @@ class DbManager
         $result = $statment->execute($valuesToBind);
         $test = $statment->rowCount() == 1;
         if ($result && $test) {
-            $insertedId = $this->db->lastInsertId();
+            $insertedId = $this->connectBDD->lastInsertId();
             return $getInsertedRow ? $this->getOne($insertedId) : $insertedId;
         }
         return false;

@@ -5,7 +5,7 @@ include_once 'Argon2.php';
 
 class BaseController
 {
-    function __contrust($routeParts)
+    function __construct($routeParts)
     {
         $this->method = $_SERVER["REQUEST_METHOD"];
 
@@ -52,7 +52,7 @@ class BaseController
 
     protected function getAll($params)
     {
-        $id = array_shift($params);
+        array_shift($params);
         $where ="";
         foreach($params as $param)
         {
@@ -61,7 +61,19 @@ class BaseController
         }
         $where = substr($where,0,-3);
         if(!$where) $where =1;
-        return $this->connectBDD->getOne($id,$where);
+        return $this->connectBDD->getAll($where);
+    }
+    protected function getOne($params){
+        $id = array_shift($params);
+        $where = "";
+        foreach($params as $param){
+            $param = urldecode($param);
+            $where .= " $param AND";
+        }
+        $where = substr($where, 0, -3);
+        if(!$where) $where = "1";
+
+        return $this->db->getOne($id, $where);
     }
 
     protected function create(){
