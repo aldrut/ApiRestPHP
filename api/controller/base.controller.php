@@ -73,7 +73,7 @@ class BaseController
         $where = substr($where, 0, -3);
         if(!$where) $where = "1";
 
-        return $this->db->getOne($id, $where);
+        return $this->connectBDD->getOne($id, $where);
     }
 
     protected function create(){
