@@ -2,7 +2,9 @@
 
 $route = $_SERVER["REQUEST_URI"];
 $routeParts = explode('/',$route);
+
 $controllerName = $routeParts[1] ?? null;
+
 if(!isset($controllerName) || empty($controllerName))
     die(json_encode(false));
 

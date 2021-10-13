@@ -12,7 +12,7 @@ class BaseController
         $firstParam = $routeParts[0] ?? null;
         $id = isset($firstParam) ? intval($firstParam) : 0;
 
-        $this->body = $this->method == 'GET' ? $_GET : json_encode(file_get_contents('php://input'), true);
+        $this->body = $this->method == 'GET' ? $_GET : json_decode(file_get_contents('php://input'), true);
 
 
 

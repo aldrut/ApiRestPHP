@@ -112,7 +112,6 @@ class DbManager
     }
 
     function deleteOne($fields, $hardDelete = false){
-        
 
         $id = $fields['id'];
         if(isset($id)){
