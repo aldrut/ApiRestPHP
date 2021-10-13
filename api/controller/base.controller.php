@@ -27,9 +27,16 @@ class BaseController
                 break;
 
             case 'PUT':
+                $this->action ="update";
                 break;
 
+            case 'PATCH':
+                $this->action =  "softDelete";
+                
+                break;
             case 'DELETE':
+                $this->action =  "hardDelete";
+                
                 break;
         
         }
@@ -77,14 +84,22 @@ class BaseController
     }
 
     protected function create(){
-        return "create an account $this->table";
+        
+        return $this->connectBDD->insertOne($this->body);
     }
 
     protected function update(){
-        return "update an account $this->table";
+
+        return $this->connectBDD->updateOne($this->body);
     }
 
-    protected function delete(){
-        return "delete an account $this->table";
+    protected function softDelete(){
+        $this->body['deleted'] = 1;
+
+        return $this->connectBDD->updateOne($this->body);
+    }
+    protected function hardDelete(){
+
+        return $this->connectBDD->deleteOne($this->body);
     }
 }

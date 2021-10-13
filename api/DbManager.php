@@ -112,7 +112,16 @@ class DbManager
     }
 
     function deleteOne($fields, $hardDelete = false){
-        //TODO 
+        
+
+        $id = $fields['id'];
+        if(isset($id)){
+            $sql = "DELETE FROM $this->table WHERE id = $id";
+            $statment = $this->connect()->query($sql);
+            return $statment->rowCount() == 1;
+        } else {
+            return false;
+        }
     }
 
     private function describe()
